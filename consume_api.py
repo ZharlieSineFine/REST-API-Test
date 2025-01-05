@@ -4,4 +4,10 @@ import json
 response = requests.get('http://api.stackexchange.com/2.3/questions?order=desc&sort=activity&site=stackoverflow')
 
 for question in response.json()['items']:
-    print(question['title'])
+    if question['answer_count'] == 0:
+        print(question['title'])
+        print(question['link'])
+    else:
+        print(question['title'])
+        print("Already answered")
+    print()
