@@ -30,3 +30,9 @@ def get_books():
         output.append(book_data)
 
     return {"books": output}
+
+
+@app.route('/books/<int:book_id>')
+def get_book(book_id):
+    book = Book.query.get_or_404(book_id)
+    return {"name": book.name, "description": book.description}
