@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 
 app = Flask(__name__)
 from flask_sqlalchemy import SQLAlchemy
@@ -36,3 +36,10 @@ def get_books():
 def get_book(book_id):
     book = Book.query.get_or_404(book_id)
     return {"name": book.name, "description": book.description}
+
+@app.route('/books/<int:book_id>', methods=['POST'])
+def add_book(book_id):
+    book = Book(name=request.json['name'], description=request.json['description'])
+    db.session.add(book)
+    db.session.commit()
+    return {'id': book.id}
