@@ -13,7 +13,7 @@ class Book(db.Model):
     description = db.Column(db.String(120))
 
     def __repr__(self):
-        return f"<Book {self.name} - {self.description}>"
+        return f"{self.name} - {self.description}"
 
 
 @app.route('/')
@@ -22,5 +22,11 @@ def index():
 
 
 @app.route('/books')
-def books():
-    return 'Books'
+def get_books():
+    books = Book.query.all()
+    output = []
+    for book in books:
+        book_data = {'name': book.name, 'description': book.description}
+        output.append(book_data)
+
+    return {"books": output}
