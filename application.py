@@ -44,3 +44,11 @@ def add_book():
     db.session.add(book)
     db.session.commit()
     return {'id': book.id}
+
+
+@app.route('/books/<int:book_id>', methods=['DELETE'])
+def delete_book(book_id):
+    book = Book.query.get_or_404(book_id)
+    db.session.delete(book)
+    db.session.commit()
+    return f'id: {book.id} deleted'
