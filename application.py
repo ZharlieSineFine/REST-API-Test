@@ -39,7 +39,7 @@ def get_book(book_id):
 
 
 @app.route('/books', methods=['POST'])
-def add_book(book_id):
+def add_book():
     book = Book(name=request.json['name'], description=request.json['description'])
     db.session.add(book)
     db.session.commit()
